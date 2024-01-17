@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"slices"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -81,6 +82,11 @@ type Opts struct {
 
 // NewService makes JWT service
 func NewService(opts Opts) *Service {
+	var once sync.Once
+	once.Do(func() {
+		jwt.MarshalSingleStringAsArray = false
+	})
+
 	res := Service{Opts: opts}
 
 	setDefault := func(fld *string, def string) {
