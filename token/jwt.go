@@ -13,10 +13,6 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func init() {
-	jwt.MarshalSingleStringAsArray = false
-}
-
 // Service wraps jwt operations
 // supports both header and cookie tokens
 type Service struct {
